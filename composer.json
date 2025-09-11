@@ -1,0 +1,27 @@
+{
+    "name": "maksb/admin",
+    "description": "Admin module",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Maksb\\Admin\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "maksb"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Maksb\\Admin\\AdminServiceProvider"
+            ]
+        }
+    }
+}
