@@ -1,0 +1,148 @@
+h1,h2,h3,h4,h5,h6 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+ol,ul {
+    padding-left: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+blockquote {
+    padding-left: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-left: solid #545050 2px;
+}
+
+code {
+    font-family: monospace, monospace;
+    color: #545050;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.nav-link {
+    color: #242021;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.app-header-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.app-header-menu li {
+    display: inline-block;
+    padding: 10px;
+}
+.app-header-title {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.login-page-title {
+    font-weight: bold;
+}
+.app-main-container {
+    background: #F0F0F0;
+}
+.app-btn {
+    display: inline-block;
+    height: 46px;
+    min-width: 175px;
+    background: black;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 0;
+    text-align: center;
+    padding: 10px;
+}
+.app-btn:hover {
+    background: #242021;
+    scale: 1.05;
+}
+.app-auth-block {
+    padding: 30px !important;
+}
+.fields-wrap {
+    margin-bottom: 10px;
+}
+.hoverable-icon {
+    cursor: pointer;
+}
+.hoverable-icon:hover {
+    color: #545050;
+}
+
+.chat-message-block {
+    display: flex;
+    justify-content: space-between;
+}
+.chat-message-text-section {
+    width: 80%;
+    margin: 10px;
+}
+.chat-message-text-block {
+    background: #EAEAEA;
+    padding: 15px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.message-ai-author-block {
+    width: 10%;
+    padding: 10px;
+}
+.message-user-author-block {
+    width: 10%;
+    padding: 10px;
+}
+.message-author-avatar {
+    padding: 10px;
+    border-radius: 100%;
+    background: black;
+    color: white;
+    font-weight: bold;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+}
+.chat-user-logo {
+    width: 60px;
+    height: 60px;
+}
+.message-author-avatar-icon {
+    width: 100%;
+    height: 100%;
+}
+.chat-form-block {
+    margin-top: 30px;
+}
+.chat-send-btn-block {
+    margin-top: 10px;
+    display: flex;
+    justify-content: end;
+}
+
+.header-logo {
+    height: 35px
+}
+.logout-btn {
+    height: 24px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    scale: 1.1;
+}
+
+@media (min-width: 1280px) {
+    .auth-container {
+        max-width: 40% !important;
+    }
+}
