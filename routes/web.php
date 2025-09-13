@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\DashboardController;
+use Maksb\Admin\Http\Controllers\Auth\AuthController;
+use Maksb\Admin\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
