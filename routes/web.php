@@ -5,7 +5,7 @@ use Maksb\Admin\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
-    Route::get('login', [AuthController::class, 'loginPage'])->name('admin.login');
+    Route::get('login', [AuthController::class, 'loginPage'])->name('maksb/admin::admin.login');
     Route::get('register', [AuthController::class, 'registerPage'])->name('admin.registerPage');
 
     Route::prefix('auth')->group(function () {
@@ -14,8 +14,8 @@ Route::prefix('admin')->group(function () {
         Route::post('register', [AuthController::class, 'register']);
     });
 
-    Route::middleware(['auth:admin'])->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::middleware(['admin_auth:admin'])->group(function () {
+        Route::get('', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::prefix('auth')->group(function () {
             Route::post('logout', [AuthController::class, 'logout']);
             Route::post('refresh', [AuthController::class, 'refresh']);
