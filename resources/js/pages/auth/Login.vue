@@ -1,36 +1,36 @@
 <script setup lang="ts">
-    import { computed, reactive, ref } from 'vue';
-    import { useRules } from 'vuetify/labs/rules';
-    import { LoginDataInterface } from '../../domain/interfaces/auth/LoginDataInterface';
-    import { loginUser } from '../../services/api/auth/authService';
-    import { authStore } from '../../store/auth/authStore';
-    import { serverValidationStore } from '../../store/common/serverValidationStore';
+import { computed, reactive, ref } from 'vue';
+import { useRules } from 'vuetify/labs/rules';
+import { LoginDataInterface } from '../../domain/interfaces/auth/LoginDataInterface';
+import { loginUser } from '../../services/api/auth/authService';
+import { serverValidationStore } from '../../store/common/serverValidationStore';
+import {redirectTo} from '../../utilites/helpers';
 
-    const loginForm = ref();
+const loginForm = ref();
 
-    serverValidationStore.initErrorMessages(['email', 'password']);
+serverValidationStore.initErrorMessages(['email', 'password']);
 
-    const fieldServerEmailErrors = computed(() => serverValidationStore.errorMessages.email);
-    const fieldServerPasswordErrors = computed(() => serverValidationStore.errorMessages.password);
+const fieldServerEmailErrors = computed(() => serverValidationStore.errorMessages.email);
+const fieldServerPasswordErrors = computed(() => serverValidationStore.errorMessages.password);
 
-    const rules = useRules();
+const rules = useRules();
 
-    const loginData = reactive<LoginDataInterface>({
-        email: '',
-        password: ''
-    });
+const loginData = reactive<LoginDataInterface>({
+    email: '',
+    password: ''
+});
 
-    async function login() {
-        const { valid } =  await loginForm.value.validate();
+async function login() {
+    const { valid } =  await loginForm.value.validate();
 
-        if (valid) {
-            const { data } = await loginUser(loginData);
+    if (valid) {
+        const { data } = await loginUser(loginData);
 
-            if (data.success && data.token && data.user) {
-                authStore.setAuthUser(data.user);
-            }
+        if (data?.success) {
+            redirectTo( data?.redirect_url || '/admin');
         }
     }
+}
 </script>
 
 <template>

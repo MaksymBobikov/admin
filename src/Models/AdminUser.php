@@ -6,7 +6,6 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
 /**
  *
@@ -35,7 +34,7 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class AdminUser extends Authenticatable implements JWTSubject, MustVerifyEmail
+class AdminUser extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -72,25 +71,5 @@ class AdminUser extends Authenticatable implements JWTSubject, MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
-     */
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
-
-    public function getEmailForVerification()
-    {
-        return $this->email;
     }
 }

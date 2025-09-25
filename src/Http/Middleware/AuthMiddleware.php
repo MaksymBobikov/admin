@@ -14,8 +14,10 @@ class AuthMiddleware extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (! $request->expectsJson()) {
-            return route('maksb/admin::admin.login');
+       if (str_starts_with($request->getRequestUri(), '/admin')) {
+            return route('admin.login');
+        } else {
+            return route('login');
         }
     }
 }

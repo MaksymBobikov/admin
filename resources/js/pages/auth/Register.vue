@@ -3,7 +3,6 @@ import { computed, reactive, ref } from 'vue';
 import { useRules } from 'vuetify/labs/rules';
 import { RegisterDataInterface } from '../../domain/interfaces/auth/RegisterDataInterface.js';
 import { registerUser } from '../../services/api/auth/authService';
-import { authStore } from '../../store/auth/authStore';
 import { serverValidationStore } from '../../store/common/serverValidationStore';
 import { redirectTo } from '../../utilites/helpers';
 
@@ -31,10 +30,8 @@ async function register() {
     if (valid) {
         const { data } = await registerUser(registerData);
 
-        if (data.success && data.token && data.user) {
-            authStore.setAuthUser(data.user);
-
-            redirectTo('/');
+        if (data?.success) {
+            redirectTo( data?.redirect_url || '/admin');
         }
     }
 }

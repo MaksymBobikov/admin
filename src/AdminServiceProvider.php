@@ -13,11 +13,11 @@ class AdminServiceProvider extends ServiceProvider
             __DIR__.'/../database/migrations' => database_path('migrations'),
         ]);
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'maksb/admin');
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
         $router = $this->app['router'];
-        $router->aliasMiddleware('admin_auth', AuthMiddleware::class);
+        $router->aliasMiddleware('auth', AuthMiddleware::class);
     }
 
     public function register(): void

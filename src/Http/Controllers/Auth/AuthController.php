@@ -2,6 +2,7 @@
 
 namespace Maksb\Admin\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Auth;
 use Maksb\Admin\Dto\Auth\NewUserDto;
 use Maksb\Admin\Http\Controllers\Controller;
 use Maksb\Admin\Http\Requests\Auth\ForgotPasswordRequest;
@@ -10,7 +11,7 @@ use Maksb\Admin\Http\Requests\Auth\RegisterRequest;
 use Maksb\Admin\Http\Requests\Auth\UpdatePasswordRequest;
 use Maksb\Admin\Http\Resources\UserResource;
 use Maksb\Admin\Http\Responses\ApiResponse;
-use Maksb\Admin\Models\User;
+use Maksb\Admin\Models\AdminUser;
 use Maksb\Admin\Services\User\UsersService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -27,62 +28,74 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        if (auth()->attempt($request->validated())) {
-            $user = auth()->user();
+        $credentials = $request->only('email', 'password');
 
-            return ApiResponse::success([
-                'user' => UserResource::make($user),
-            ]);
+        if (Auth::guard('admin')->attempt($credentials, $request->boolean('remember'))) {
+            $request->session()->regenerate();
+
+            if ($request->wantsJson()) {
+                return ApiResponse::success(['redirect_url' => route('admin.dashboard')]);
+            }
+
+            return redirect()->route('admin.dashboard');
         }
 
-        throw new AuthenticationException('Invalid credentials');
+        if ($request->wantsJson()) {
+            throw new AuthenticationException('Invalid credentials');
+        }
+
+        return back()->withErrors([
+            'email' => 'Invalid credentials.',
+        ]);
     }
 
     public function loginPage()
     {
-        return view('auth.login');
+        return view('maksb/admin::auth.login');
     }
 
     public function registerPage()
     {
-        return view('auth.register');
+        return view('maksb/admin::auth.register');
     }
 
     public function register(RegisterRequest $request)
     {
         $user = $this->usersService->createNewUser(NewUserDto::fromArray($request->validated()));
 
-        auth()->login($user);
+        Auth::guard('admin')->login($user);
 
-        return ApiResponse::success([
-            'user' => UserResource::make($user),
-        ]);
+        if ($request->wantsJson()) {
+            return ApiResponse::success(['redirect_url' => route('admin.dashboard')]);
+        }
+
+        return redirect()->route('admin.dashboard');
     }
 
     public function check()
     {
-        if (auth()->check()) {
+        if (Auth::guard('admin')->check()) {
             return ApiResponse::success([
-                'user' => UserResource::make(auth()->user()),
+                'user' => UserResource::make(Auth::guard('admin')->user()),
             ]);
         }
 
         throw new AuthorizationException("User not authorized");
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        auth()->logout();
+        Auth::guard('admin')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-        return ApiResponse::success([
-            'message' => 'Successfully logged out',
-        ]);
+        return redirect()->route('admin.login');
     }
 
     public function refresh()
     {
         return ApiResponse::success([
-            'token' => auth()->refresh()
+            'token' => Auth::guard('admin')->refresh()
         ]);
     }
 
@@ -117,7 +130,7 @@ class AuthController extends Controller
 
         $status = Password::reset(
             $data,
-            function (User $user, string $password) {
+            function (AdminUser $user, string $password) {
                 $user->forceFill([
                     'password' => Hash::make($password)
                 ]);
