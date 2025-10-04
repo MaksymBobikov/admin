@@ -23,6 +23,9 @@ class AdminServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
+                __DIR__ . '/../config/admin-auth.php' => config_path('admin-auth.php'),
+            ], 'config');
+            $this->publishes([
                 __DIR__ . '/../resources/admin/js' => resource_path('admin/js'),
                 __DIR__ . '/../resources/admin/css' => resource_path('admin/css')
             ], 'assets');
@@ -31,5 +34,6 @@ class AdminServiceProvider extends ServiceProvider
 
     public function register(): void
     {
+
     }
 }

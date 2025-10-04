@@ -5,6 +5,11 @@ namespace Maksb\Admin\Console\commands;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Maksb\Admin\Domain\Auth\PermissionsEnum;
+use Maksb\Admin\Domain\Auth\UserRolesEnum;
+use Maksb\Admin\Models\AdminUser;
+use Maksb\Admin\Services\User\RbacService;
 
 class AdminInstallCommand extends Command
 {
@@ -12,9 +17,13 @@ class AdminInstallCommand extends Command
 
     protected $description = 'Install admin panel package';
 
-    public function handle(Filesystem $files)
-    {
+    public function handle(
+        Filesystem $files,
+        RbacService $rbacService,
+    ) {
         $this->info('Installing admin panel...');
+
+        $this->publishRbac();
 
         $this->call('vendor:publish', [
             '--provider' => "Maksb\\Admin\\AdminServiceProvider",
@@ -23,6 +32,8 @@ class AdminInstallCommand extends Command
         $this->buildFrontend($files);
 
         $this->call('migrate');
+
+        $this->createAdminUser($rbacService);
 
         $this->info('Admin Panel installed...');
     }
@@ -72,5 +83,27 @@ class AdminInstallCommand extends Command
         }
 
         return (bool)File::put($fileName, $content."\n\n".$append);
+    }
+
+    private function createAdminUser(RbacService $rbacService): void
+    {
+        $adminRole = $rbacService->createRole(UserRolesEnum::ROLE_ADMIN);
+        $permission = $rbacService->createPermission(PermissionsEnum::SHOW_DASHBOARD);
+        $rbacService->addPermissions($adminRole, $permission);
+
+        $user = AdminUser::create([
+            'name' => 'admin',
+            'email' => 'admin@test.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        $rbacService->assignUserToRole($user, $adminRole);
+    }
+
+    private function publishRbac(): void
+    {
+        $this->call('vendor:publish', [
+            '--provider' => 'Spatie\\Permission\\PermissionServiceProvider',
+        ]);
     }
 }

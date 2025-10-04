@@ -15,7 +15,8 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=8.0"
+        "php": ">=8.0",
+        "spatie/laravel-permission": "^6.21"
     },
     "extra": {
         "laravel": {

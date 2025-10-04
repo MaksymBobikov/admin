@@ -10,14 +10,12 @@ class UsersService
 {
     public function createNewUser(NewUserDto $newUserDto): AdminUser
     {
-        $user = AdminUser::query()->create(
+        return AdminUser::query()->create(
             [
                 'name' => $newUserDto->getName(),
                 'email' => $newUserDto->getEmail(),
                 'password' => Hash::make($newUserDto->getPassword()),
             ]
         );
-
-        return $user;
     }
 }
