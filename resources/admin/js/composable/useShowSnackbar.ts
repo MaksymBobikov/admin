@@ -1,5 +1,5 @@
 import { computed } from 'vue';
-import { snackbarModel } from '../store/common/snackbarModel';
+import { snackbarModel } from '@/store/common/snackbarModel';
 
 export function useShowSnackbar() {
     return computed(() => snackbarModel.show);

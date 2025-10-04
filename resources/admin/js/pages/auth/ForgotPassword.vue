@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue';
 import { useRules } from 'vuetify/labs/rules';
-import { forgotPassword } from '../../services/api/auth/authService';
-import { ForgotPasswordInterface } from '../../domain/interfaces/auth/ForgotPasswordInterface';
-import { serverValidationStore } from '../../store/common/serverValidationStore';
-import { redirectTo } from "../../utilites/helpers";
+import { forgotPassword } from '@/services/api/auth/authService';
+import { ForgotPasswordInterface } from '@/domain/interfaces/auth/ForgotPasswordInterface';
+import { serverValidationStore } from '@/store/common/serverValidationStore';
+import { redirectTo } from "@/utilites/helpers";
 
 const forgotPasswordForm = ref();
 

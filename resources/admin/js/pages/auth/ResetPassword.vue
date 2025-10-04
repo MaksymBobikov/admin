@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue';
 import { useRules } from 'vuetify/labs/rules';
-import { updatePassword } from '../../services/api/auth/authService';
-import { ResetPasswordDataInterface } from '../../domain/interfaces/auth/ResetPasswordDataInterface';
-import { serverValidationStore } from '../../store/common/serverValidationStore';
-import { redirectTo } from '../../utilites/helpers';
+import { updatePassword } from '@/services/api/auth/authService';
+import { ResetPasswordDataInterface } from '@/domain/interfaces/auth/ResetPasswordDataInterface';
+import { serverValidationStore } from '@/store/common/serverValidationStore';
+import { redirectTo } from '@/utilites/helpers';
 
 const resetPasswordForm = ref();
 

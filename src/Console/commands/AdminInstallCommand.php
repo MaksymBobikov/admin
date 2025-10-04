@@ -64,6 +64,7 @@ class AdminInstallCommand extends Command
         $packageFileJsonData['dependencies']['js-cookie'] = '^3.0.5';
         $packageFileJsonData['dependencies']['vue'] = '^3.5.13';
         $packageFileJsonData['dependencies']['vuetify'] = '^3.8.1';
+        $packageFileJsonData['dependencies']['path'] = '^0.12.7';
 
         $files->put($packageJsonFile, json_encode($packageFileJsonData, JSON_PRETTY_PRINT));
 

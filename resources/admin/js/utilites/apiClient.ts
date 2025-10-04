@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { authStore } from '../store/auth/authStore';
-import { notifyError } from '../services/ui/notifyService';
-import { serverValidationStore } from '../store/common/serverValidationStore';
-import { isLoadingStore } from '../store/common/isLoadingStore';
+import { authStore } from '@/store/auth/authStore';
+import { notifyError } from '@/services/ui/notifyService';
+import { serverValidationStore } from '@/store/common/serverValidationStore';
+import { isLoadingStore } from '@/store/common/isLoadingStore';
 
 const token = document.head.querySelector('meta[name="csrf-token"]');
 const baseURL = `${envData.APP_URL}`;

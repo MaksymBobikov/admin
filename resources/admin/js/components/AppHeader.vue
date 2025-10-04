@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useAuthUser } from '../composable/useAuthUser';
-import { logoutUser} from '../services/api/auth/authService';
-import { authStore } from '../store/auth/authStore';
+import { useAuthUser } from '@/composable/useAuthUser';
+import { logoutUser} from '@/services/api/auth/authService';
+import { authStore } from '@/store/auth/authStore';
 
 const logoutLogo = '/assets/logout.png';
 

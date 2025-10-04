@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import { ValidationErrorsInterface } from '../../domain/interfaces/validation/ValidationErrorsInterface';
+import { ValidationErrorsInterface } from '@/domain/interfaces/validation/ValidationErrorsInterface';
 
 export const serverValidationStore = reactive({
     errorMessages: { } as ValidationErrorsInterface,

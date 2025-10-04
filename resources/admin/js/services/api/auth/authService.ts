@@ -1,8 +1,8 @@
-import { apiClient } from '../../../utilites/apiClient';
-import { LoginDataInterface } from '../../../domain/interfaces/auth/LoginDataInterface';
-import { RegisterDataInterface } from '../../../domain/interfaces/auth/RegisterDataInterface';
-import { ForgotPasswordInterface } from '../../../domain/interfaces/auth/ForgotPasswordInterface';
-import { ResetPasswordDataInterface } from '../../../domain/interfaces/auth/ResetPasswordDataInterface';
+import { apiClient } from '@/utilites/apiClient';
+import { LoginDataInterface } from '@/domain/interfaces/auth/LoginDataInterface';
+import { RegisterDataInterface } from '@/domain/interfaces/auth/RegisterDataInterface';
+import { ForgotPasswordInterface } from '@/domain/interfaces/auth/ForgotPasswordInterface';
+import { ResetPasswordDataInterface } from '@/domain/interfaces/auth/ResetPasswordDataInterface';
 
 export async function checkAuthUser(): Promise<any> {
     const response = await apiClient.get('/admin/auth/check');
