@@ -10,6 +10,8 @@ use Maksb\Admin\Domain\Auth\PermissionsEnum;
 use Maksb\Admin\Domain\Auth\UserRolesEnum;
 use Maksb\Admin\Models\AdminUser;
 use Maksb\Admin\Services\User\RbacService;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AdminInstallCommand extends Command
 {
@@ -40,9 +42,7 @@ class AdminInstallCommand extends Command
 
     private function buildFrontend(Filesystem $files): void
     {
-        if ($this->changeBuilderFile('vite.config.js', '|resources/admin/js|', $files->get(__DIR__ . '/../../../install-stubs/vite.config.js'))) {
-            $this->info('Vite config updated');
-        }
+        $this->changeBuilderFile('vite.config.js', $files->get(__DIR__ . '/../../../install-stubs/vite.config.js'));
 
         $this->info('Updating package.json');
 
@@ -58,6 +58,7 @@ class AdminInstallCommand extends Command
         $packageFileJsonData['devDependencies']['postcss'] = '^8.4.47';
         $packageFileJsonData['devDependencies']['tailwindcss'] = '^3.4.13';
         $packageFileJsonData['devDependencies']['vite'] = '^6.0.11';
+        $packageFileJsonData['devDependencies']['sass-embedded'] = '^1.93.2';
 
         $packageFileJsonData['dependencies']['@vitejs/plugin-vue'] = '^5.2.3';
         $packageFileJsonData['dependencies']['dotenv'] = '^16.4.7';
@@ -65,38 +66,49 @@ class AdminInstallCommand extends Command
         $packageFileJsonData['dependencies']['vue'] = '^3.5.13';
         $packageFileJsonData['dependencies']['vuetify'] = '^3.8.1';
         $packageFileJsonData['dependencies']['path'] = '^0.12.7';
+        $packageFileJsonData['dependencies']['bootstrap'] = '^5.3.8';
 
         $files->put($packageJsonFile, json_encode($packageFileJsonData, JSON_PRETTY_PRINT));
 
         $this->info('package.json modified');
     }
 
-    private function changeBuilderFile(string $fileName, string $ifExistsRegex, string $append): bool
+    private function changeBuilderFile(string $fileName, string $content): void
     {
-        if (!File::exists($fileName)) {
-            File::put($fileName, $append);
-        }
-
-        $content = File::get($fileName);
-
-        if (preg_match($ifExistsRegex, $content)) {
-            return false;
-        }
-
-        return (bool)File::put($fileName, $content."\n\n".$append);
+       File::put($fileName, $content);
     }
 
     private function createAdminUser(RbacService $rbacService): void
     {
-        $adminRole = $rbacService->createRole(UserRolesEnum::ROLE_ADMIN);
-        $permission = $rbacService->createPermission(PermissionsEnum::SHOW_DASHBOARD);
+        $adminRole = Role::query()
+            ->where('guard_name', 'admin')
+            ->where('name', UserRolesEnum::ROLE_ADMIN)
+            ->first();
+
+        if (!$adminRole) {
+            $adminRole = $rbacService->createRole(UserRolesEnum::ROLE_ADMIN);
+        }
+
+        $permission = Permission::query()
+            ->where('guard_name', 'admin')
+            ->where('name', PermissionsEnum::SHOW_DASHBOARD)
+            ->first();
+
+        if (!$permission) {
+            $permission = $rbacService->createPermission(PermissionsEnum::SHOW_DASHBOARD);
+        }
+
         $rbacService->addPermissions($adminRole, $permission);
 
-        $user = AdminUser::create([
-            'name' => 'admin',
-            'email' => 'admin@test.com',
-            'password' => Hash::make('password'),
-        ]);
+        $user = AdminUser::query()->where('email', 'admin@test.com')->first();
+
+        if (!$user) {
+            $user = AdminUser::create([
+                'name' => 'admin',
+                'email' => 'admin@test.com',
+                'password' => Hash::make('password'),
+            ]);
+        }
 
         $rbacService->assignUserToRole($user, $adminRole);
     }

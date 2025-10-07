@@ -27,13 +27,21 @@ class AdminServiceProvider extends ServiceProvider
             ], 'config');
             $this->publishes([
                 __DIR__ . '/../resources/admin/js' => resource_path('admin/js'),
-                __DIR__ . '/../resources/admin/css' => resource_path('admin/css')
+                __DIR__ . '/../resources/admin/css' => resource_path('admin/css'),
+                __DIR__ . '/../resources/admin/assets' => resource_path('admin/assets'),
             ], 'assets');
         }
     }
 
     public function register(): void
     {
+        $this->mergeAuthConfig();
+    }
 
+    private function mergeAuthConfig(): void
+    {
+        $config = require __DIR__ . '/../config/auth.php';
+
+        config(['auth' => array_replace_recursive(config('auth'), $config)]);
     }
 }
