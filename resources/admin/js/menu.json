@@ -1,0 +1,11 @@
+[
+    {
+        "title":  "Admin users",
+        "items": [
+            {
+                "title":  "Admin users",
+                "url": "/admin/admins"
+            }
+        ]
+    }
+]

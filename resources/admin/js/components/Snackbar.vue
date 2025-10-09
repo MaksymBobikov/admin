@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { watch } from 'vue';
-import { snackbarModel } from '@/store/common/snackbarModel.js';
-import { useColorSnackbar, useShowSnackbar, useTextSnackbar } from '@/composable/useShowSnackbar';
+import { snackbarModel } from '@/js/store/common/snackbarModel.js';
+import { useColorSnackbar, useShowSnackbar, useTextSnackbar } from '@/js/composable/useShowSnackbar';
 
 const showSnackbar = useShowSnackbar();
 const snackbarText = useTextSnackbar();

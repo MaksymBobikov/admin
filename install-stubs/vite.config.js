@@ -13,13 +13,20 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, './resources/admin/js'),
+            '@': path.resolve(__dirname, './resources/admin'),
         },
+    },
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: `@import "@/assets/styles/_variables.scss";`
+            }
+        }
     },
     plugins: [
         vue(),
         laravel({
-            input: ['resources/admin/css/app.css', 'resources/admin/js/app.js'],
+            input: ['resources/admin/css/app.scss', 'resources/admin/js/app.js'],
             refresh: true,
         }),
     ],

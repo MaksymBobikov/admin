@@ -1,4 +1,4 @@
-@extends('maksb/admin::layout.app')
-@section('content')
+@extends('maksb/admin::layout.page')
+@section('page-content')
    Home Page
 @endsection

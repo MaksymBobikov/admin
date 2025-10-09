@@ -1,5 +1,5 @@
 <script setup>
-import { useIsLoading } from '@/composable/useIsLoading.js';
+import { useIsLoading } from '@/js/composable/useIsLoading.js';
 
 const overlay = useIsLoading();
 

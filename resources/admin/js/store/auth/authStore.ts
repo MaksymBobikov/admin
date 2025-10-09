@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import { AuthUserInterface } from '@/domain/interfaces/auth/AuthUserInterface';
+import { AuthUserInterface } from '@/js/domain/interfaces/auth/AuthUserInterface';
 
 export const authStore = reactive({
     isAuthenticatedUser: false,

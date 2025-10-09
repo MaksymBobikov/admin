@@ -1,3 +1,38 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "@/assets/styles/_variables.scss";
+
+body {
+    background-color: $background-color;
+    font-family: 'Inter', sans-serif;
+}
+
+.sidebar {
+    width: 20%;
+    min-height: 100vh;
+    background-color: $sidebar-bg;
+    color: $sidebar-text;
+}
+
+.sidebar a {
+    color: $sidebar-text;
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    background-color: lighten($sidebar-bg, 10%);
+}
+
+.header-bar {
+    background-color: $primary-color;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 h1,h2,h3,h4,h5,h6 {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;

@@ -1,4 +1,4 @@
-import { SnackbarColor, snackbarModel } from '@/store/common/snackbarModel';
+import { SnackbarColor, snackbarModel } from '@/js/store/common/snackbarModel';
 
 export function notifyInfo(message: string) {
     snackbarModel.text = message;

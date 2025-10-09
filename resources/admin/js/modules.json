@@ -1,0 +1,34 @@
+[
+    {
+        "path":  "@/js/components/AppHeader.vue",
+        "name": "app-header"
+    },
+    {
+        "path":  "@/js/pages/auth/Login.vue",
+        "name": "login"
+    },
+    {
+        "path":  "@/js/pages/auth/Register.vue",
+        "name": "register"
+    },
+    {
+        "path":  "@/js/pages/auth/ForgotPassword.vue",
+        "name": "forgot-password"
+    },
+    {
+        "path":  "@/js/pages/auth/ResetPassword.vue",
+        "name": "reset-password"
+    },
+    {
+        "path":  "@/js/components/Snackbar.vue",
+        "name": "snackbar"
+    },
+    {
+        "path":  "@/js/components/LoadingOverlay.vue",
+        "name": "loading-overlay"
+    },
+    {
+        "path":  "@/js/components/Sidebar.vue",
+        "name": "sidebar"
+    }
+]

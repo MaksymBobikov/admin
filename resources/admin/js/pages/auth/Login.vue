@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue';
 import { useRules } from 'vuetify/labs/rules';
-import { LoginDataInterface } from '@/domain/interfaces/auth/LoginDataInterface';
-import { loginUser } from '@/services/api/auth/authService';
-import { serverValidationStore } from '@/store/common/serverValidationStore';
-import {redirectTo} from '@/utilites/helpers';
+import { LoginDataInterface } from '@/js/domain/interfaces/auth/LoginDataInterface';
+import { loginUser } from '@/js/services/api/auth/authService';
+import { serverValidationStore } from '@/js/store/common/serverValidationStore';
+import {redirectTo} from '@/js/utilites/helpers';
 
 const loginForm = ref();
 

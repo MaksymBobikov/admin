@@ -1,10 +1,11 @@
-import AppHeader from '@/components/AppHeader.vue';
-import Login from '@/pages/auth/Login.vue';
-import Register from '@/pages/auth/Register.vue';
-import ForgotPassword from '@/pages/auth/ForgotPassword.vue';
-import ResetPassword from '@/pages/auth/ResetPassword.vue';
-import Snackbar from '@/components/Snackbar.vue';
-import LoadingOverlay from "@/components/LoadingOverlay.vue";
+import AppHeader from '@/js/components/AppHeader.vue';
+import Login from '@/js/pages/auth/Login.vue';
+import Register from '@/js/pages/auth/Register.vue';
+import ForgotPassword from '@/js/pages/auth/ForgotPassword.vue';
+import ResetPassword from '@/js/pages/auth/ResetPassword.vue';
+import Snackbar from '@/js/components/Snackbar.vue';
+import LoadingOverlay from "@/js/components/LoadingOverlay.vue";
+import Sidebar from '@/js/components/Sidebar.vue';
 
 export const importComponents = (app) => {
     app.component('app-header', AppHeader);
@@ -14,4 +15,5 @@ export const importComponents = (app) => {
     app.component('reset-password', ResetPassword);
     app.component('snackbar', Snackbar);
     app.component('loading-overlay', LoadingOverlay);
+    app.component('sidebar', Sidebar);
 }

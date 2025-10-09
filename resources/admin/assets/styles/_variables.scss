@@ -1,0 +1,9 @@
+$primary-color: #007bff;
+$background-color: #f8f9fa;
+$sidebar-bg: #343a40;
+$sidebar-text: #ffffff;
+
+// Bootstrap override (опційно)
+$theme-colors: (
+    "primary": $primary-color
+);

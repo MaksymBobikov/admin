@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useAuthUser } from '@/composable/useAuthUser';
-import { logoutUser} from '@/services/api/auth/authService';
-import { authStore } from '@/store/auth/authStore';
+import { useAuthUser } from '@/js/composable/useAuthUser';
+import { logoutUser} from '@/js/services/api/auth/authService';
+import { authStore } from '@/js/store/auth/authStore';
 
 const logoutLogo = '/assets/logout.png';
 
@@ -18,17 +18,15 @@ async function logout() {
 </script>
 
 <template>
-    <v-app-bar :elevation="1">
-        <v-app-bar-title>
-            <span class="app-header-title">Header</span>
-        </v-app-bar-title>
-        <div class="d-flex" v-if="user">
-            <div class="mr-5">{{ user.name }}</div>
-            <div class="mr-5">
-                <img @click.prevent="logout" :src="logoutLogo" class="logout-btn"/>
-            </div>
+    <header class="header-bar">
+        <div>
+            <strong>Admin Dashboard</strong>
         </div>
-    </v-app-bar>
+        <div class="d-flex align-items-center gap-3">
+            <button class="btn btn-light btn-sm">Notifications 🔔</button>
+            <button class="btn btn-outline-light btn-sm">Login</button>
+        </div>
+    </header>
 </template>
 
 <style scoped>

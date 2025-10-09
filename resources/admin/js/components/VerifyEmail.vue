@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { sendVerificationRequest } from '@/services/api/user/userService';
+import { sendVerificationRequest } from '@/js/services/api/user/userService';
 
 const sendResult = ref(null);
 
