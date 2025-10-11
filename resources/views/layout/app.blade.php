@@ -11,7 +11,7 @@
 <body class="antialiased">
 <div id="app">
     <v-app>
-        <app-header></app-header>
+        @include('maksb/admin::components.header')
         <v-main class="app-main-container">
             @yield('content')
         </v-main>

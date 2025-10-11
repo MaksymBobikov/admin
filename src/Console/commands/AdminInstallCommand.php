@@ -42,7 +42,9 @@ class AdminInstallCommand extends Command
 
     private function buildFrontend(Filesystem $files): void
     {
-        $this->changeBuilderFile('vite.config.js', $files->get(__DIR__ . '/../../../install-stubs/vite.config.js'));
+        $this->changeBuilderFile('vite.config.js', $files->get(__DIR__ . '/../../../vite.config.js'));
+        $this->changeBuilderFile('postcss.config.js', $files->get(__DIR__ . '/../../../install-stubs/postcss.config.js'));
+        $this->changeBuilderFile('tailwind.config.js', $files->get(__DIR__ . '/../../../install-stubs/tailwind.config.js'));
 
         $this->info('Updating package.json');
 

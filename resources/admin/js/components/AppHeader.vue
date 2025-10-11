@@ -1,18 +1,24 @@
 <script setup lang="ts">
-import { useAuthUser } from '@/js/composable/useAuthUser';
-import { logoutUser} from '@/js/services/api/auth/authService';
-import { authStore } from '@/js/store/auth/authStore';
+import { defineProps, ref } from 'vue';
+import { logoutUser} from "@/js/services/api/auth/authService";
+import {redirectTo} from "@/js/utilites/helpers";
 
-const logoutLogo = '/assets/logout.png';
+const { user } = defineProps<{
+    user?: Object
+}>()
 
-const user = useAuthUser();
+const showMenu = ref(false);
 
 async function logout() {
-    const response = await logoutUser();
+    const data = await logoutUser();
 
-    if (response) {
-        authStore.setAuthUser(null);
+    if (data?.redirect_url) {
+        redirectTo(data.redirect_url);
     }
+}
+
+function toggleMenu() {
+    showMenu.value = !showMenu.value;
 }
 
 </script>
@@ -22,9 +28,15 @@ async function logout() {
         <div>
             <strong>Admin Dashboard</strong>
         </div>
-        <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center gap-3 position-relative">
             <button class="btn btn-light btn-sm">Notifications 🔔</button>
-            <button class="btn btn-outline-light btn-sm">Login</button>
+            <i class="fa-solid fa-user cursor-pointer" @click.prevent="toggleMenu"></i>
+            <div v-if="showMenu" class="user-header-menu position-absolute p-3">
+                <div>{{ user?.name }}</div>
+                <ul class="header-user-menu">
+                    <li class="cursor-pointer" v-if="user" @click.prevent="logout">Logout</li>
+                </ul>
+            </div>
         </div>
     </header>
 </template>

@@ -89,6 +89,10 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
+        if ($request->wantsJson()) {
+            return ApiResponse::success(['redirect_url' => route('admin.login')]);
+        }
+
         return redirect()->route('admin.login');
     }
 

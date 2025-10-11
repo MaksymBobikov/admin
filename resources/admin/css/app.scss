@@ -176,6 +176,17 @@ code {
     scale: 1.1;
 }
 
+.user-header-menu {
+    top: 50px;
+    background: $background-color;
+    color: black;
+}
+
+.header-user-menu {
+    padding: 10px;
+    list-style: none;
+}
+
 @media (min-width: 1280px) {
     .auth-container {
         max-width: 40% !important;
