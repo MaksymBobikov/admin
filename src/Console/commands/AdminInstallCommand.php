@@ -48,29 +48,24 @@ class AdminInstallCommand extends Command
 
         $this->info('Updating package.json');
 
-        $packageJsonFile = base_path('package.json');
-        $packageJson = $files->get($packageJsonFile);
+        $packageJson = $files->get(__DIR__ . '/../../../package.json');
 
         $packageFileJsonData = json_decode($packageJson, JSON_OBJECT_AS_ARRAY);
 
-        $packageFileJsonData['devDependencies']['autoprefixer'] = '^10.4.20';
-        $packageFileJsonData['devDependencies']['axios'] = '^1.7.4';
-        $packageFileJsonData['devDependencies']['concurrently'] = '^9.0.1';
-        $packageFileJsonData['devDependencies']['laravel-vite-plugin'] = '^1.2.0';
-        $packageFileJsonData['devDependencies']['postcss'] = '^8.4.47';
-        $packageFileJsonData['devDependencies']['tailwindcss'] = '^3.4.13';
-        $packageFileJsonData['devDependencies']['vite'] = '^6.0.11';
-        $packageFileJsonData['devDependencies']['sass-embedded'] = '^1.93.2';
+        $mainJsonFile = base_path('package.json');
+        $mainJson = $files->get($mainJsonFile);
 
-        $packageFileJsonData['dependencies']['@vitejs/plugin-vue'] = '^5.2.3';
-        $packageFileJsonData['dependencies']['dotenv'] = '^16.4.7';
-        $packageFileJsonData['dependencies']['js-cookie'] = '^3.0.5';
-        $packageFileJsonData['dependencies']['vue'] = '^3.5.13';
-        $packageFileJsonData['dependencies']['vuetify'] = '^3.8.1';
-        $packageFileJsonData['dependencies']['path'] = '^0.12.7';
-        $packageFileJsonData['dependencies']['bootstrap'] = '^5.3.8';
+        $mainFileJsonData = json_decode($mainJson, JSON_OBJECT_AS_ARRAY);
 
-        $files->put($packageJsonFile, json_encode($packageFileJsonData, JSON_PRETTY_PRINT));
+        foreach ($packageFileJsonData['devDependencies'] as $lib => $version) {
+            $mainFileJsonData['devDependencies'][$lib] = $version;
+        }
+
+        foreach ($packageFileJsonData['dependencies'] as $lib => $version) {
+            $mainFileJsonData['dependencies'][$lib] = $version;
+        }
+
+        $files->put($mainJsonFile, json_encode($mainFileJsonData, JSON_PRETTY_PRINT));
 
         $this->info('package.json modified');
     }
@@ -91,16 +86,25 @@ class AdminInstallCommand extends Command
             $adminRole = $rbacService->createRole(UserRolesEnum::ROLE_ADMIN);
         }
 
-        $permission = Permission::query()
+        $permissionDashboard = Permission::query()
             ->where('guard_name', 'admin')
             ->where('name', PermissionsEnum::SHOW_DASHBOARD)
             ->first();
 
-        if (!$permission) {
-            $permission = $rbacService->createPermission(PermissionsEnum::SHOW_DASHBOARD);
+        if (!$permissionDashboard) {
+            $permissionDashboard = $rbacService->createPermission(PermissionsEnum::SHOW_DASHBOARD);
         }
 
-        $rbacService->addPermissions($adminRole, $permission);
+        $permissionAdmins = Permission::query()
+            ->where('guard_name', 'admin')
+            ->where('name', PermissionsEnum::ADMINS_INDEX)
+            ->first();
+
+        if (!$permissionAdmins) {
+            $permissionAdmins = $rbacService->createPermission(PermissionsEnum::ADMINS_INDEX);
+        }
+
+        $rbacService->addPermissions($adminRole, [$permissionDashboard, $permissionAdmins]);
 
         $user = AdminUser::query()->where('email', 'admin@test.com')->first();
 
