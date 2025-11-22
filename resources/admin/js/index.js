@@ -6,6 +6,24 @@ import ResetPassword from '@/js/pages/auth/ResetPassword.vue';
 import Snackbar from '@/js/components/Snackbar.vue';
 import LoadingOverlay from "@/js/components/LoadingOverlay.vue";
 import Sidebar from '@/js/components/Sidebar.vue';
+import PageTable from '@/js/ui-elements/PageTable.vue';
+import Paginate from '@/js/ui-elements/Paginate.vue';
+import PageForm from '@/js/ui-elements/PageForm.vue';
+import EmailField from '@/js/ui-elements/form-fields/EmailField.vue';
+import CustomSelect from '@/js/ui-elements/form-fields/CustomSelect.vue';
+import DateInput from '@/js/ui-elements/form-fields/DateInput.vue';
+import AdminEditPage from '@/js/pages/admins/AdminEditPage.vue';
+import CheckboxesList from '@/js/ui-elements/form-fields/CheckboxesList.vue';
+import CheckboxField from '@/js/ui-elements/form-fields/CheckboxField.vue';
+import FileField from '@/js/ui-elements/form-fields/CheckboxField.vue';
+import RadioButtonField from '@/js/ui-elements/form-fields/CheckboxField.vue';
+import TextField from '@/js/ui-elements/form-fields/TextField.vue';
+import NumberField from '@/js/ui-elements/form-fields/NumberField.vue';
+import TextAreaField from '@/js/ui-elements/form-fields/TextareaField.vue';
+import PageFilter from '@/js/ui-elements/PageFilter.vue';
+import PageListing from '@/js/ui-elements/PageListing.vue';
+import DialogContainer from '@/js/ui-elements/containers/DialogContainer.vue';
+import TabsContainer from '@/js/ui-elements/containers/TabsContainer.vue';
 
 export const importComponents = (app) => {
     app.component('app-header', AppHeader);
@@ -16,4 +34,23 @@ export const importComponents = (app) => {
     app.component('snackbar', Snackbar);
     app.component('loading-overlay', LoadingOverlay);
     app.component('sidebar', Sidebar);
+    app.component('page-table', PageTable);
+    app.component('paginate', Paginate);
+    app.component('page-form', PageForm);
+    app.component('email-field', EmailField);
+    app.component('custom-select', CustomSelect);
+    app.component('date-input', DateInput);
+    app.component('checkboxes-list', CheckboxesList);
+    app.component('checkbox-field', CheckboxField);
+    app.component('file-field', FileField);
+    app.component('radio-button-field', RadioButtonField);
+    app.component('text-field', TextField);
+    app.component('number-field', NumberField);
+    app.component('text-area-field', TextAreaField);
+    app.component('dialog-container', DialogContainer);
+    app.component('tabs-container', TabsContainer);
+
+    app.component('admin-edit-page', AdminEditPage);
+    app.component('page-filter', PageFilter);
+    app.component('page-listing', PageListing);
 }

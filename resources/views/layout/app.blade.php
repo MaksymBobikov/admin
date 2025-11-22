@@ -10,14 +10,12 @@
 </head>
 <body class="antialiased">
 <div id="app">
-    <v-app>
-        @include('maksb/admin::components.header')
-        <v-main class="app-main-container">
-            @yield('content')
-        </v-main>
-        <snackbar></snackbar>
-        <loading-overlay></loading-overlay>
-    </v-app>
+    @include('maksb/admin::components.header')
+    <div class="app-main-container">
+        @yield('content')
+    </div>
+    <snackbar></snackbar>
+    <loading-overlay></loading-overlay>
 </div>
 </body>
 </html>

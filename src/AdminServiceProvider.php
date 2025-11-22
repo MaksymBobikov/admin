@@ -50,6 +50,7 @@ class AdminServiceProvider extends ServiceProvider
             __DIR__ . '/../resources/admin/js' => resource_path('admin/js'),
             __DIR__ . '/../resources/admin/css' => resource_path('admin/css'),
             __DIR__ . '/../resources/admin/assets' => resource_path('admin/assets'),
+            __DIR__ . '/../resources/admin/fonts' => resource_path('admin/fonts'),
         ], 'assets');
     }
 

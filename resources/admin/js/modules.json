@@ -30,5 +30,9 @@
     {
         "path":  "@/js/components/Sidebar.vue",
         "name": "sidebar"
+    },
+    {
+        "path":  "@/js/ui-elements/PageTable.vue",
+        "name": "page-table"
     }
 ]

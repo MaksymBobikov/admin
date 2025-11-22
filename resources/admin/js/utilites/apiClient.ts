@@ -45,7 +45,7 @@ export const apiClient = {
         appAxios.defaults.headers.Authorization = `Bearer ${token}`
     },
 
-    get(url, data = {}, configs = {}) {
+    async get(url, data = {}, configs = {}) {
         isLoadingStore.loading = true;
 
         return appAxios.get(url,{
@@ -54,7 +54,7 @@ export const apiClient = {
         })
     },
 
-    post(url, data = {}, configs = {}) {
+    async post(url, data = {}, configs = {}) {
         isLoadingStore.loading = true;
 
         return appAxios.post(url, data, configs)

@@ -8,6 +8,9 @@ export const serverValidationStore = reactive({
             this.errorMessages[name] = [];
         });
     },
+    initErrorMessage(name: string) {
+        this.errorMessages[name] = [];
+    },
     setErrorMessages(errorsData) {
         Object.keys(errorsData).forEach((key) => {
             this.errorMessages[key] = errorsData[key] || [];

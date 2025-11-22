@@ -3,6 +3,8 @@ import laravel from 'laravel-vite-plugin';
 import dotenv from 'dotenv';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
+import vueDevTools from 'vite-plugin-vue-devtools';
+import { createHtmlPlugin } from 'vite-plugin-html'
 
 export default defineConfig({
     build: {
@@ -25,6 +27,8 @@ export default defineConfig({
     },
     plugins: [
         vue(),
+        vueDevTools(),
+        createHtmlPlugin({}),
         laravel({
             input: ['resources/admin/css/app.scss', 'resources/admin/js/app.js'],
             refresh: true,
