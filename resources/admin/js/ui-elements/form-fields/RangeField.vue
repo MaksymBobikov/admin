@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {defineProps, defineModel, computed} from 'vue';
+import {useValidationRules} from "@/js/composable/useValidationRules";
 
 const range = defineModel('modelValue', { required: true })
 
@@ -9,7 +10,8 @@ const {name,
     step = 1,
     label = '',
     required = false,
-    errorMessages = []
+    errorMessages = [],
+    rules = [],
 } = defineProps<{
     name: string,
     minValue: number,
@@ -18,7 +20,10 @@ const {name,
     label?: string,
     required?: boolean,
     errorMessages?: string[],
+    rules?: any[],
 }>()
+
+const preparedRules = useValidationRules(rules);
 
 </script>
 
@@ -30,6 +35,7 @@ const {name,
             :max="maxValue"
             :min="minValue"
             :step="step"
+            :rules="preparedRules"
             class="align-center"
             hide-details
         >

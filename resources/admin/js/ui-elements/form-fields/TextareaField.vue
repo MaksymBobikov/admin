@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {defineProps, defineModel, computed, ref, watch} from 'vue';
+import {useValidationRules} from "@/js/composable/useValidationRules";
 
 const value = defineModel('modelValue', { required: false, default: null });
 
@@ -10,6 +11,7 @@ const {
     errorMessages = [],
     readonly = false,
     rows = 5,
+    rules = [],
 } = defineProps<{
     name: string,
     label?: string,
@@ -17,7 +19,10 @@ const {
     readonly?: boolean,
     errorMessages?: string[],
     rows?: number,
+    rules?: any[],
 }>()
+
+const preparedRules = useValidationRules(rules);
 
 </script>
 
@@ -31,6 +36,7 @@ const {
             :readonly="readonly"
             :error-messages="errorMessages"
             :rows="rows"
+            :rules="preparedRules"
             variant="outlined"
         ></v-textarea>
     </div>

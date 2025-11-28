@@ -2,7 +2,7 @@
 import {defineProps, defineModel, computed, ref, watch} from 'vue';
 import {dateService} from "@/js/utilites/dateService";
 import {useClickOutside} from "@/js/composable/useClickOutside";
-import {serverValidationStore} from "@/js/store/common/serverValidationStore";
+import {useValidationRules} from "@/js/composable/useValidationRules";
 
 const rangeValue = 'range';
 
@@ -22,6 +22,7 @@ const {
     readonly = false,
     allowedDates = [],
     errorMessages = [],
+    rules = [],
 } = defineProps<{
     name: string,
     label?: string,
@@ -35,7 +36,10 @@ const {
     allowedDates?: any[],
     errorMessages?: string[],
     firstDayOfWeek?: number,
+    rules?: any[],
 }>()
+
+const preparedRules = useValidationRules(rules);
 
 const showMenu = ref(false);
 
@@ -58,8 +62,6 @@ watch(dateRange, (newValue, oldValue) => {
     }
 });
 
-serverValidationStore.initErrorMessage(name);
-
 useClickOutside(dateInputBoxRef, closeMenu, ['select-box__variant-item','search-box__checkbox']);
 </script>
 
@@ -78,6 +80,7 @@ useClickOutside(dateInputBoxRef, closeMenu, ['select-box__variant-item','search-
             :first-day-of-week="firstDayOfWeek"
             :placeholder="placeholder"
             :readonly="readonly"
+            :rules="preparedRules"
         ></v-date-input>
     </div>
 </template>

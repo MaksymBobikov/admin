@@ -1,34 +1,24 @@
 <script setup lang="ts">
-import {defineProps, defineModel, computed} from 'vue';
-import {useRules} from 'vuetify/labs/rules';
-import {serverValidationStore} from "@/js/store/common/serverValidationStore";
+import { defineProps, defineModel } from 'vue';
+import { serverValidationStore } from "@/js/store/common/serverValidationStore";
+import { useValidationRules } from "@/js/composable/useValidationRules";
 
 const value = defineModel('modelValue', { required: true })
 
 const {name,
     label = '',
-    required = false,
-    errorMessages = []
+    errorMessages = [],
+    rules = [],
 } = defineProps<{
     name: string,
     label?: string,
-    required?: boolean,
     errorMessages?: string[],
+    rules?: any[],
 }>()
 
 serverValidationStore.initErrorMessage(name);
 
-const rules = useRules();
-
-const computedRules = computed(() => {
-    const textRules = [];
-
-    if (required) {
-        textRules.push(rules.required());
-    }
-
-    return textRules;
-});
+const preparedRules = useValidationRules(rules);
 
 </script>
 
@@ -38,7 +28,7 @@ const computedRules = computed(() => {
             v-model="value"
             type="text"
             :label="label"
-            :rules="computedRules"
+            :rules="preparedRules"
             :error-messages="errorMessages"
             variant="outlined"
         />

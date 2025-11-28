@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {defineProps, defineModel} from 'vue';
+import {useValidationRules} from "@/js/composable/useValidationRules";
 
 const value = defineModel('modelValue', { required: false, default: null });
 
@@ -9,7 +10,8 @@ const {name,
     readonly = false,
     disabled = false,
     clearable = false,
-    errorMessages = []
+    errorMessages = [],
+    rules = []
 } = defineProps<{
     name: string,
     label?: string,
@@ -18,7 +20,10 @@ const {name,
     disabled?: boolean,
     readonly?: boolean,
     errorMessages?: string[],
+    rules?: any[],
 }>()
+
+const preparedRules = useValidationRules(rules);
 
 </script>
 
@@ -32,6 +37,7 @@ const {name,
             :disabled="disabled"
             :clearable="clearable"
             :error-messages="errorMessages"
+            :rules="preparedRules"
         >
         </v-checkbox>
     </div>

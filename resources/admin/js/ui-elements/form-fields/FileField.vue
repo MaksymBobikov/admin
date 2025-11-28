@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {defineProps, defineModel} from 'vue';
+import {useValidationRules} from "@/js/composable/useValidationRules";
 
 const value = defineModel('modelValue', { required: false, default: null });
 
@@ -8,13 +9,17 @@ const {name,
     disabled = false,
     readonly = false,
     multiple = false,
+    rules = [],
 } = defineProps<{
     name: string,
     disabled?: boolean,
     readonly?: boolean,
     multiple?: boolean,
     errorMessages?: string[],
+    rules?: any[],
 }>()
+
+const preparedRules = useValidationRules(rules);
 </script>
 
 <template>
@@ -26,6 +31,7 @@ const {name,
             :disabled="disabled"
             :readonly="readonly"
             :multiple="multiple"
+            :rules="preparedRules"
             variant="outlined"
         >
         </v-file-input>
